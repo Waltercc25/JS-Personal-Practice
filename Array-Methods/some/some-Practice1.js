@@ -30,3 +30,12 @@ const products = [
 const hasOutoOfStock = products.some(product => product.stock === 0);
 
 console.log(hasOutoOfStock);// true, because there is at least one product with low stock of 0.
+
+//Funtion using every to confirm if there is a failing student.
+
+const grades = [70, 85, 90, 40, 100];
+
+function hasFailed(grades) {
+    return grades.some(score => score < 60);
+}
+
