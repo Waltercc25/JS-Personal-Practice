@@ -98,3 +98,51 @@ const users3 = [
   
 
 console.log(disableSms(users3, 2));
+
+
+
+//Example number 4 using deep copy to modify the object.
+
+const projects = [
+    {
+      id: 1,
+      name: "App",
+      config: {
+        visibility: "private",
+        permissions: {
+          read: true,
+          write: false
+        }
+      }
+    },
+    {
+      id: 2,
+      name: "Website",
+      config: {
+        visibility: "public",
+        permissions: {
+          read: true,
+          write: true
+        }
+      }
+    }
+  ];
+  
+
+  //function that will help us to change write from false to true.
+
+  function enableWrite(projects, projectId) {
+    return projects.map(project => project.id === projectId
+        ? {
+            ...project,
+            config: {
+                ...project.config,
+                permissions: {
+                    ...project.config.permissions,
+                    write: true
+                }
+            }
+        } : project
+    );
+  }
+  
