@@ -49,4 +49,52 @@ const updated3 = {
 
 
 
-//
+
+
+//Example number 3, applying deep copy creating a function.
+
+const users3 = [
+    {
+      id: 1,
+      name: "Ana",
+      settings: {
+        theme: "light",
+        notifications: {
+          email: true,
+          sms: false
+        }
+      }
+    },
+    {
+      id: 2,
+      name: "Luis",
+      settings: {
+        theme: "dark",
+        notifications: {
+          email: true,
+          sms: true
+        }
+      }
+    }
+  ];
+  
+
+  function disableSms(users3, userId) {
+    return users3.map(user =>
+      user.id === userId
+        ? {
+            ...user, // copia el usuario
+            settings: {
+              ...user.settings, // copia settings
+              notifications: {
+                ...user.settings.notifications, // copia notifications
+                sms: false // modifica SOLO sms
+              }
+            }
+          }
+        : user
+    );
+  }
+  
+
+console.log(disableSms(users3, 2));
