@@ -77,3 +77,47 @@ const courses = [
   }
 
   
+//Function using (some, filter and every) all the courses must have their lessons with a duration longer than 0
+
+function allPublishedCoursesAreValid(courses) {
+    return courses
+    .filter(course => course.published)
+    .every(course => 
+        course.lessons.every(lesson => lesson.duration > 0)
+    );
+}
+
+const orders2 = [
+    {
+      id: 1,
+      paid: true,
+      items: [
+        { name: "Laptop", stock: 3 },
+        { name: "Mouse", stock: 10 }
+      ]
+    },
+    {
+      id: 2,
+      paid: true,
+      items: [
+        { name: "Keyboard", stock: 0 }
+      ]
+    },
+    {
+      id: 3,
+      paid: false,
+      items: [
+        { name: "Monitor", stock: 0 }
+      ]
+    }
+  ];
+  
+  //Function to confirm the paid orders and verify if the stock is more then 0 to ship the orders.
+  function canShipAllPaidOrders(orders2) {
+    const paidOrders = orders2.filter(order => order.paid);
+
+    return paidOrders.length > 0 &&
+        paidOrders.every(order =>
+            order.items.every(item => item.stock > 0)
+        );
+  }
