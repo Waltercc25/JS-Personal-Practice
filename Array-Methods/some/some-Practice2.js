@@ -121,3 +121,4 @@ const orders2 = [
             order.items.every(item => item.stock > 0)
         );
   }
+  
