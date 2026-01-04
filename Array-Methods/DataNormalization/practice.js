@@ -69,3 +69,52 @@ const orders = [
 
 
       
+      //Advanced data normalization (nested objects)
+
+      //real scenario(API)
+
+      const orders3 = [
+        {
+          id: 1,
+          user: { id: 10, name: "Ana" },
+          items: [
+            { id: "p1", name: "Laptop", price: 1000 },
+            { id: "p2", name: "Mouse", price: 50 }
+          ]
+        },
+        {
+          id: 2,
+          user: { id: 20, name: "Luis" },
+          items: [
+            { id: "p2", name: "Mouse", price: 50 }
+          ]
+        }
+      ];
+      
+
+      //Funciton to normalize the dataset.
+      function normalizeOrders(orders3) {
+        return orders3.reduce((acc, order) => {
+
+            //normalizing users
+            acc.users[order.user.id] = order.user;
+
+            //normalizing products
+            order.items.forEach(item => {
+                acc.products[item.id] = item;
+            });
+
+            //Normalizing orders
+            acc.orders[order.id] = {
+                id: order.id,
+                userId: order.user.id,
+                items: order.items.map(item => item.id)
+            };
+
+            return acc;
+        },{
+            users: {},
+            products: {},
+            orders: {}
+        });
+      }
