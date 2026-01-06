@@ -118,3 +118,64 @@ const orders = [
             orders: {}
         });
       }
+
+
+    console.log(normalizeOrders(orders3));
+
+
+
+    //Example 5, Advanced normalization.
+
+    const comments = [
+      {
+        id: 1,
+        post: { id: 100, title: "JS Tips" },
+        author: { id: 10, name: "Ana" },
+        reactions: [
+          { id: "r1", type: "like" },
+          { id: "r2", type: "love" }
+        ]
+      },
+      {
+        id: 2,
+        post: { id: 100, title: "JS Tips" },
+        author: { id: 20, name: "Luis" },
+        reactions: [
+          { id: "r1", type: "like" }
+        ]
+      }
+    ];
+    
+
+    //Function that will help us to normalize the json.
+    function commentsNormalization(comments) {
+      return comments.reduce((acc, comment) => {
+
+        //Normalizing the posts
+        acc.posts[comment.post.id] = comment.post;
+
+        //Normalizing authors
+        acc.authors[comment.author.id] = comment.author;
+
+        //Normalizing reacctions.
+        comment.reactions.forEach(reaction => {
+          acc.reactions[reaction.id] = reaction;
+        });
+
+        //normalizing comments
+        acc.comments[comment.id] = {
+          id: comment.id,
+          postId: comment.post.id,
+          authorId: comment.author.id,
+          reactions: comment.reactions.map(reaction => reaction.id)
+        };
+
+        return acc;
+
+      }, {
+        posts:{},
+        authors: {},
+        reactions: {},
+        comments: {}
+      })
+    }
